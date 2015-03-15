@@ -24,7 +24,7 @@ public class Solution {
         return automor;
     }
 
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		String s = "babababababababababababababababababababababababababa";
 		String c = "codility";
 		System.out.println(solution(s));
