@@ -14,7 +14,7 @@ public class ThreadLocalExample {
     
             try {
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {Y
+            } catch (InterruptedException e) {
             }
     
             System.out.println(threadLocal.get());

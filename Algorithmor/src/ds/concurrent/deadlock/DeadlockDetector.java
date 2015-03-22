@@ -19,18 +19,18 @@ import java.util.concurrent.TimeUnit;
 	  final Runnable deadlockCheck = new Runnable() {
 	    @Override
 	    public void run() {
-	      long[] deadlockedThreadIds = deadlockHandler.this.mbean.findDeadlockedThreads();
+	      long[] deadlockedThreadIds = DeadlockDetector.this.mbean.findDeadlockedThreads();
 	    
 	      if (deadlockedThreadIds != null) {
 	        ThreadInfo[] threadInfos = 
-	        deadlockHandler.this.mbean.getThreadInfo(deadlockedThreadIds);
+	        		DeadlockDetector.this.mbean.getThreadInfo(deadlockedThreadIds);
 	      
-	        deadlockHandler.this.deadlockHandler.handleDeadlock(threadInfos);
+	        DeadlockDetector.this.deadlockHandler.handleDeadlock(threadInfos);
 	      }
 	    }
 	  };
 	  
-	  public deadlockHandler(final deadlockHandler deadlockHandler, 
+	  public DeadlockDetector(final DeadlockHandler deadlockHandler, 
 	    final long period, final TimeUnit unit) {
 	    this.deadlockHandler = deadlockHandler;
 	    this.period = period;
