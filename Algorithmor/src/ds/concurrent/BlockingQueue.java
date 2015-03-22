@@ -10,7 +10,7 @@ public class BlockingQueue<T> {
 	private int size;
 	private final int MAXSIZE = Integer.MAX_VALUE;
 	
-	Lock lock = new ReentrantLock();
+	Lock lock = new ReentrantLock(true);
 	
 	Condition queueEmpty = lock.newCondition();
 	Condition queueFull  = lock.newCondition();
@@ -21,7 +21,7 @@ public class BlockingQueue<T> {
 	}
 	
 	public void enqueue(T item){
-	        lock.lock();
+		lock.lock();
 			try{
 				if(queue.size() > size){
 					queueFull.await();
@@ -86,7 +86,7 @@ public class BlockingQueue<T> {
 		                                     
 		                            try
 		                            {
-		                                Thread.sleep(100);
+		                                Thread.sleep(50);
 		                            }
 		                            catch (InterruptedException e)
 		                            {
@@ -105,7 +105,7 @@ public class BlockingQueue<T> {
 		                            queueInstance.dequeue();
 		                            try
 		                            {
-		                                Thread.sleep(100);
+		                                Thread.sleep(200);
 		                            }
 		                            catch (InterruptedException e)
 		                            {
