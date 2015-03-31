@@ -12,13 +12,17 @@ public class ThreadPool{
 		taskQueue = new BlockingQueue<Runnable>(size);
 		//Add threads as per the size and start them
 		for(int i=0;i<size;i++){
-			PoolThread t = new PoolThread();
+			PoolThread t = new PoolThread("Thread"+i,taskQueue);
 			threads.add(t);
-			t.start();			;
 		}
+		
+		for(PoolThread thread : threads){
+            thread.start();
+        }
+		
 	}
 	
-	public synchronized void execute(Runnable task){
+	public synchronized void execute(Runnable task) throws Exception{
 		if(this.isStopped){
 			throw new IllegalStateException("ThreadPool is stopped");
 		}
@@ -32,31 +36,24 @@ public class ThreadPool{
 		}
 	}
 	
-	private class PoolThread extends Thread{
-		
-		private boolean isStopped = false;
-		
-		@Override
-		public void run() {
-			while(!isStopped){
-				try{
-					Runnable task = taskQueue.dequeue();
-					task.run();
-				}catch(Exception e){
-					if(!isStopped()){
-						e.printStackTrace();
-					}
+	public static void main(String[] args){
+		ThreadPool pool = new ThreadPool(2);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+
+		}
+		for(int i =0;i<100;i++){
+			Runnable task = new Runnable(){
+				public void run(){
+					System.out.println("Task"+Thread.currentThread().getName());
 				}
+			};
+			try{
+			pool.execute(task);
+			}catch(Exception e){
+				System.out.println("Exception occured in execution");
 			}
 		}
-
-		public synchronized void doStop(){
-			isStopped = true;
-			this.interrupt();
-		}
-		
-		public synchronized boolean isStopped(){
-	        return isStopped;
-	    }
 	}
 }

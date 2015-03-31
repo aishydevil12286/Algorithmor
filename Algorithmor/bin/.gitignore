@@ -1,6 +1,11 @@
 /ds/
 /rough/
+<<<<<<< HEAD
 /misc/
 /algo/
 /oops/
 /patterns/
+=======
+/patterns
+/threads
+>>>>>>> origin/master
