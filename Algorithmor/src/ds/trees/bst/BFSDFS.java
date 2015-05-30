@@ -6,12 +6,22 @@ import java.util.Stack;
 
 public class BFSDFS {
 	
-	public Node root;
+	private Node root;
 	
 	public BFSDFS(char c){
 		this.root = new Node(c);
 	}
-		
+	/*
+	 * The algorithm for Breadth First search in a Binary tree is:
+	 * 
+	 * 1. Create an empty queue and enqueue the root node.
+	 * 2. Print the root node and set it "visited"
+	 * 3. While the queue is not empty do :
+	 *    3a. Remove a node from queue and see if it has unvisited child nodes.
+	 *    3b. While unvisited child nodes are there do : 
+	 *        3b1. Iterate over child nodes from left -> right 
+	 *        3b2. Print a child, mark it visited and add to the queue.
+	 */
 		public  void bfs(){
 			// BFS uses Queue data structure
 			Queue<Node> queue = new LinkedList<Node>();
@@ -26,11 +36,23 @@ public class BFSDFS {
 					child.printNode();
 					queue.add(child);
 				}
+				node.visited = false; // Clear the visited property for another search
 			}
-			// Clear visited property of nodes
-			//clearNodes();
 		}
+
 		
+		/*
+		 * The algorithm for Breadth First search in a Binary tree is:
+		 * 
+		 * 1. Create an empty stack and push the root node.
+		 * 2. Print the root node and set it "visited"
+		 * 3. While the stack is not empty do :
+		 *    3a. Check if the stack's top node has unvisited child nodes.
+		 *    3b. If yes then do : 
+		 *        3b1. Iterate over unvisited child nodes from left -> right 
+		 *        3b2. Print a child, mark it visited and push to the stack
+		 *    3c. Else pop the top node.
+		 */
 		public void dfs(){
 			// DFS uses Stack data structure
 			Stack<Node> stack = new Stack<Node>();
@@ -46,7 +68,9 @@ public class BFSDFS {
 					stack.push(child);
 				}
 				else {
-					stack.pop();
+					Node temp = stack.pop(); 
+					temp.visited = false;// Clear the visited property
+					temp = null;
 				}
 			}
 		}
@@ -65,7 +89,10 @@ public class BFSDFS {
 		BFSDFS bfsdfs = new BFSDFS('A');
 		bfsdfs.root.left = new Node(new Node('D'),new Node('E'),'B');
 		bfsdfs.root.right = new Node(new Node('F'),new Node('G'),'C');
-		bfsdfs.dfs();
+		//System.out.println(" Depth first search");
+		//bfsdfs.dfs();
+		System.out.println("\n Breadth first search");
+		bfsdfs.bfs();
 
 	}
 
