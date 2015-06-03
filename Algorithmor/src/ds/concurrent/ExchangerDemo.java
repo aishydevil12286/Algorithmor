@@ -36,8 +36,9 @@ public void run() {
      str += ch++; 
 
    try { 
-     // Exchange a full buffer for an empty one. 
-     str = ex.exchange(str); 
+     // Exchange a full buffer for an empty one.
+	 System.out.println("Exchanging "+str);
+     str = ex.exchange(str);
    } catch(InterruptedException exc) { 
      System.out.println(exc); 
    } 
