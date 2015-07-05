@@ -6,10 +6,10 @@ import java.util.Stack;
 
 public class BFSDFS {
 	
-	private Node root;
+	private SimpleNode root;
 	
 	public BFSDFS(char c){
-		this.root = new Node(c);
+		this.root = new SimpleNode(c);
 	}
 	/*
 	 * The algorithm for Breadth First search in a Binary tree is:
@@ -24,19 +24,19 @@ public class BFSDFS {
 	 */
 		public  void bfs(){
 			// BFS uses Queue data structure
-			Queue<Node> queue = new LinkedList<Node>();
+			Queue<SimpleNode> queue = new LinkedList<SimpleNode>();
 			queue.add(this.root); // Add the root to the queue
 			this.root.printNode();
 			root.visited = true; // Mark the root as visited
 			while(!queue.isEmpty()) { // While the queue is not empty
-				Node node = (Node)queue.remove();
-				Node child=null;
-				while((child=getUnvisitedChildNode(node))!=null) {
+				SimpleNode simpleNode = (SimpleNode)queue.remove();
+				SimpleNode child=null;
+				while((child=getUnvisitedChildNode(simpleNode))!=null) {
 					child.visited=true;
 					child.printNode();
 					queue.add(child);
 				}
-				node.visited = false; // Clear the visited property for another search
+				simpleNode.visited = false; // Clear the visited property for another search
 			}
 		}
 
@@ -55,31 +55,31 @@ public class BFSDFS {
 		 */
 		public void dfs(){
 			// DFS uses Stack data structure
-			Stack<Node> stack = new Stack<Node>();
+			Stack<SimpleNode> stack = new Stack<SimpleNode>();
 			stack.push(this.root);
 			root.visited=true;
 			root.printNode();
 			while(!stack.isEmpty()) {
-				Node node = (Node)stack.peek();
-				Node child = getUnvisitedChildNode(node);
+				SimpleNode simpleNode = (SimpleNode)stack.peek();
+				SimpleNode child = getUnvisitedChildNode(simpleNode);
 				if(child != null) {
 					child.visited = true;
 					child.printNode();
 					stack.push(child);
 				}
 				else {
-					Node temp = stack.pop(); 
+					SimpleNode temp = stack.pop(); 
 					temp.visited = false;// Clear the visited property
 					temp = null;
 				}
 			}
 		}
 		
-		public Node getUnvisitedChildNode(Node node){
-			if(node.left != null && !node.left.visited){
-				return node.left;
-			}else if(node.right != null && !node.right.visited){
-				return node.right;
+		public SimpleNode getUnvisitedChildNode(SimpleNode simpleNode){
+			if(simpleNode.left != null && !simpleNode.left.visited){
+				return simpleNode.left;
+			}else if(simpleNode.right != null && !simpleNode.right.visited){
+				return simpleNode.right;
 			}else{
 				return null;
 			}
@@ -87,8 +87,8 @@ public class BFSDFS {
 
 	public static void main(String[] args) {
 		BFSDFS bfsdfs = new BFSDFS('A');
-		bfsdfs.root.left = new Node(new Node('D'),new Node('E'),'B');
-		bfsdfs.root.right = new Node(new Node('F'),new Node('G'),'C');
+		bfsdfs.root.left = new SimpleNode(new SimpleNode('D'),new SimpleNode('E'),'B');
+		bfsdfs.root.right = new SimpleNode(new SimpleNode('F'),new SimpleNode('G'),'C');
 		//System.out.println(" Depth first search");
 		//bfsdfs.dfs();
 		System.out.println("\n Breadth first search");

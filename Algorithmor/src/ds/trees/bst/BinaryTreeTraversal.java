@@ -3,9 +3,9 @@ package ds.trees.bst;
 import java.util.Stack;
 
 public class BinaryTreeTraversal {
-	public Node root;
+	public SimpleNode root;
 	
-	public static void inOrder(Node root){ // Left -> Root -> Right
+	public static void inOrder(SimpleNode root){ // Left -> Root -> Right
 		if(root == null){
 			return;
 		}
@@ -14,7 +14,7 @@ public class BinaryTreeTraversal {
 		inOrder(root.right);
 	}
 	
-	public static void preOrder(Node root){ // Root -> Left -> Right
+	public static void preOrder(SimpleNode root){ // Root -> Left -> Right
 		if(root == null){
 			return;
 		}
@@ -23,7 +23,7 @@ public class BinaryTreeTraversal {
 		preOrder(root.right);
 	}
 	
-	public static void postOrder(Node root){ // Left -> Right -> Root
+	public static void postOrder(SimpleNode root){ // Left -> Right -> Root
 		if(root == null){
 			return;
 		}
@@ -53,19 +53,19 @@ public class BinaryTreeTraversal {
 		    2c. Change directionFlag to change the direction of traversal
 		    2d. Set stack=tempStack
 	 */
-	public static void zigzag(Node root){
+	public static void zigzag(SimpleNode root){
 		if(root==null) return;   
-        Stack<Node> stack=new Stack<Node>();  
+        Stack<SimpleNode> stack=new Stack<SimpleNode>();  
         stack.push(root);  
           
         boolean directionflag=false;  
         while(!stack.isEmpty())  
         {  
-            Stack<Node> tempStack=new Stack<Node>();  
+            Stack<SimpleNode> tempStack=new Stack<SimpleNode>();  
           
             while(!stack.isEmpty())  
             {  
-                Node tempNode=stack.pop();  
+                SimpleNode tempNode=stack.pop();  
                 tempNode.printNode();  
                 if(!directionflag)   
                 {  
@@ -89,9 +89,9 @@ public class BinaryTreeTraversal {
 	}
 
 	public static void main(String[] args) {
-		Node root = new Node('A');
-		root.left = new Node(new Node('D'),new Node('E'),'B');
-		root.right = new Node(new Node('F'),new Node('G'),'C');
+		SimpleNode root = new SimpleNode('A');
+		root.left = new SimpleNode(new SimpleNode('D'),new SimpleNode('E'),'B');
+		root.right = new SimpleNode(new SimpleNode('F'),new SimpleNode('G'),'C');
 		System.out.println(" In Order Traversal");
 		inOrder(root);
 		System.out.println("\n Pre Order Traversal");
