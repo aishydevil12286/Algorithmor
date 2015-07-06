@@ -19,9 +19,7 @@ public class CyclicBarrierDemo {
 	    new MyBarrierThread(cb, "M"); 
 	    new MyBarrierThread(cb, "N"); 
 	    new MyBarrierThread(cb, "O"); 
-
 	}
-
 }
 
 //A thread of execution that uses a CyclicBarrier. 
@@ -36,16 +34,14 @@ MyBarrierThread(CyclicBarrier c, String n) {
 } 
 
 public void run() { 
-  
- System.out.println(name); 
-
+ System.out.println(name);
  try { 
    cbar.await(); 
  } catch (BrokenBarrierException exc) { 
    System.out.println(exc); 
  } catch (InterruptedException exc) { 
    System.out.println(exc); 
- } 
+ }
 } 
 } 
 

@@ -28,7 +28,7 @@ public class BlockingQueue<T> {
 				}
 				queue.offerLast(item); // adds the item to the end of 
 				System.out.println("Added element by "+Thread.currentThread().getName());
-				queueEmpty.signalAll();
+				queueEmpty.signal();
 			}catch(InterruptedException e){
 				e.printStackTrace();
 			}finally{
@@ -45,7 +45,7 @@ public class BlockingQueue<T> {
 			}
 			item = queue.pollFirst();
 			System.out.println("Removed element by "+Thread.currentThread().getName());
-			queueFull.signalAll();
+			queueFull.signal();
 		}catch(InterruptedException e){
 			e.printStackTrace();
 		}finally{
