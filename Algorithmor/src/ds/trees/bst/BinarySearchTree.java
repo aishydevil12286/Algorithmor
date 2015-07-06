@@ -1,6 +1,7 @@
 package ds.trees.bst;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BinarySearchTree<K extends Comparable<K>,V> {
 	
@@ -114,7 +115,44 @@ public class BinarySearchTree<K extends Comparable<K>,V> {
 		return same; 
 	}
 	
-	protected class Node<T extends Comparable<T>,N>{
+	public Node<K,V> getDoubleLinkedList(){
+		Node<K,V> start = null;
+        start = getDoubleLinkedList(root,"right").get(0);
+		return start;		
+	}
+	
+	private List<Node<K,V>> getDoubleLinkedList(Node<K,V> root,String flag){
+		Node<K,V> head = null;
+		Node<K,V> tail = null;
+		
+		if(root.left!= null){
+			List<Node<K,V>> endPoints = getDoubleLinkedList(root.left,"left");
+			tail = endPoints.get(1);
+			head = endPoints.get(0);
+			tail.right = root;
+			tail = tail.right;
+		}else{
+			head = root;
+			tail = root;
+		}
+		
+		// Convert the right sub tree to linked list recursively
+		if(root.right != null){
+			List<Node<K,V>> endPoints = getDoubleLinkedList(root.right,"right");
+			tail.right = endPoints.get(0);
+			while(tail.right != null){
+				tail = tail.right;
+			}
+		}
+	
+		List<Node<K,V>> result = new ArrayList<Node<K,V>>();
+		result.add(head);
+		result.add(tail);
+		
+		return result;
+	}
+	
+	class Node<T extends Comparable<T>,N>{
 		
 		T key;
 		N value;
@@ -137,20 +175,23 @@ public class BinarySearchTree<K extends Comparable<K>,V> {
 			this.right = right;
 			this.size = size;
 		}
-
 	}
 	
 	public static void main(String[] args) {
 		
 		BinarySearchTree<String,String> bst1 = new BinarySearchTree<String, String>();
 		BinarySearchTree<String,String> bst2 = new BinarySearchTree<String, String>();
-		bst1.add("A", "A");
+		bst1.add("D", "D");
 		bst1.add("B", "B");
+		bst1.add("F", "F");
+		bst1.add("A", "A");
 		bst1.add("C", "C");
-		bst2.add("D", "D");
-		bst2.add("B", "B");
-		bst2.add("C", "C");
-        System.out.println(bst1.isInOrderSame(bst1.getRoot(), bst2.getRoot()));
+		bst1.add("E", "E");
+		bst2.root = bst1.getDoubleLinkedList();
+		while(bst2.root!=null){
+			System.out.println(bst2.root.value);
+			bst2.root = bst2.root.right;
+		}
 	}
 
 }
