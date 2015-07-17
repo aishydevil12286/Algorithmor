@@ -152,6 +152,64 @@ public class BinarySearchTree<K extends Comparable<K>,V> {
 		return result;
 	}
 	
+	// provides sum of a sub-tree rooted at "root"
+	private int sum(Node<K,V> root){
+	    int sum = 0;
+	    int leftSum = 0;
+	    int rightSum = 0;
+	    if(root==null){
+	        sum = 0;
+	        return sum;
+	    }
+	    
+	    if(root.left != null){
+	        leftSum = sum(root.left);
+	    }
+	    
+	    if(root.right != null){
+	        rightSum = sum(root.right);
+	    }
+	    
+	    sum = leftSum + rightSum + (Integer)root.value;
+	    return sum;
+	}
+
+
+	public Node<K,V> maxSumInTree(Node<K,V> root){
+
+	Node<K,V> leftMax = null;
+	Node<K,V> rightMax = null;
+	Node<K,V> max = root;
+
+	if(root == null){
+	    return null;
+	}
+
+	if(root.left!=null){
+	   leftMax = maxSumInTree(root.left);
+	}
+
+	if (root.right!=null){
+	   rightMax = maxSumInTree(root.right);
+	}
+
+	int leftMaxSum = sum(leftMax);
+	int rightMaxSum = sum(rightMax);
+	int rootSum = sum(root);
+
+	if(rootSum > leftMaxSum && rootSum > rightMaxSum){
+	   max = root;
+	}
+	else{
+	   if(leftMaxSum > rightMaxSum){
+	    max = leftMax;
+	   }else{
+	    max = rightMax;
+	   }
+	}
+	return max;
+	}
+	
 	class Node<T extends Comparable<T>,N>{
 		
 		T key;

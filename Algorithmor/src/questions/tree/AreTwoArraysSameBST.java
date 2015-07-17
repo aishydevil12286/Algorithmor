@@ -2,7 +2,7 @@ package questions.tree;
 
 public class AreTwoArraysSameBST {
 	
-	public static boolean isSameBST(int[] a, int[] b){
+	public static boolean isSameBST(char[] a, char[] b){
 		
 		int n = a!=null?a.length:0;
 		char [] aLeft= null;
@@ -50,9 +50,9 @@ public class AreTwoArraysSameBST {
 				bLeft[bLi++] = (char)b[i];
 			}else{
 				if (bRight ==null){
-					bRight = new int[n];
+					bRight = new char[n];
 				}
-				bRight[bRi++] = b[i];
+				bRight[bRi++] = (char)b[i];
 			}
 		}
 		
@@ -62,8 +62,8 @@ public class AreTwoArraysSameBST {
 	}
 
 	public static void main(String[] args) {
-		int[] m = {1,2,3};
-		int[] n = {1,2,3};
+		char[] m = {1,2,3};
+		char[] n = {1,2,3};
 		
 		System.out.println(isSameBST(m,n));
 	}
